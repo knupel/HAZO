@@ -1,15 +1,15 @@
 // link between commit and user
 function link() {
-  for(var i = 0 ; i < user.length ; i++) {
+  for(var i = 0 ; i < agent.length ; i++) {
     for(var k = 0 ; k < node.length ; k++) {
-      var user_x = user[i].get_pos_x();
-      var user_y = user[i].get_pos_y();
+      var agent_x = agent[i].get_pos_x();
+      var agent_y = agent[i].get_pos_y();
       var node_x = node[k].get_pos_x();
       var node_y = node[k].get_pos_y();
       stroke(0);
       noFill();
       strokeWeight(1);
-      line(user_x,user_y,node_x,node_y);
+      line(agent_x,agent_y,node_x,node_y);
     }
   }
 }
@@ -84,37 +84,37 @@ function nodes() {
 
 
 // user
-var user = [];
+var agent = [];
 
-function users_setting() {
-  user[0] = new User('Dinh');
-  user[1] = new User('Stan');
+function agents_setting() {
+  agent[0] = new Agent('Dinh');
+  agent[1] = new Agent('Stan');
 }
 
-function users() {
+function agents() {
   // set
   var x = mouseX ;
   var y = mouseY;
-  user[0].position(x,y);
+  agent[0].position(x,y);
   x = windowWidth -x;
   y = windowHeight -y;
-  user[1].position(x,y);
+  agent[1].position(x,y);
   fill(255);
 
-  for(var i = 0 ; i < user.length ; i++) {
-    user[i].set_push(50);
+  for(var i = 0 ; i < agent.length ; i++) {
+    agent[i].set_push(50);
   }
   
 
   // display
-  for(var i = 0 ; i < user.length ; i++) {
-    var user_x = user[i].get_pos_x();
-    var user_y = user[i].get_pos_y();
-    var size = user[i].get_push();
+  for(var i = 0 ; i < agent.length ; i++) {
+    var agent_x = agent[i].get_pos_x();
+    var agent_y = agent[i].get_pos_y();
+    var size = agent[i].get_push();
 
     fill(255);
     noStroke();
-    ellipse(user_x,user_y,size,size);
+    ellipse(agent_x,agent_y,size,size);
 
 
     fill(0);
@@ -122,7 +122,7 @@ function users() {
     textFont(myFont);
     var text_size = 24;
     textSize(text_size);
-    text(user[i].get_name(),user_x,user_y +(text_size *1.3));
+    text(agent[i].get_name(),agent_x,agent_y +(text_size *1.3));
   }
 }
 

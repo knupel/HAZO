@@ -3,7 +3,7 @@
 * 2018-2018
 * Hazo is a tool to explore the github architectory project dynamicaly
 */
-var version = 'version 0.0.2';
+var version = 'version 0.0.3';
 var api_name ='hazo';
 
 var myFont;
@@ -13,7 +13,7 @@ function setup() {
   // createCanvas(windowWidth, windowHeight,WEBGL);
   createCanvas(windowWidth, windowHeight);
   myFont = loadFont('assets/Tokyo-OneSolid.otf');
-  users_setting();
+  agents_setting();
   nodes_setting();
 
 }
@@ -24,7 +24,7 @@ function setup() {
 function draw() {
   background(255,0,0);
   link();
-  users();
+  agents();
   nodes();
   hazo_version();
 }
