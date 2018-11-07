@@ -45,6 +45,22 @@ function windowResized() {
 
 
 
+// version
+function hazo_version() {
+  var text_size = 60;
+  textAlign(CENTER);
+  textFont(myFont);
+  fill(0);
+  // if(mouseIsPressed) 
+  textSize(text_size);
+  text(api_name,windowWidth/2,windowHeight/2);
+  textSize(text_size/2);
+  text(version,windowWidth/2,windowHeight/2+text_size/2);
+}
+
+
+
+
 
 
 
