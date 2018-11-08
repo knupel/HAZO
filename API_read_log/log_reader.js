@@ -21,7 +21,7 @@ function display_log(font,size) {
   // text('dist:'+ radius_log, 100,100);
   // text('cx:'+ colour_log_x + ' cy:'+ colour_log_y +' cz:'+ colour_log_z, 100,100);
   var s = split(String(result[target_log]),'|');
-  var pos = position(.01,windowHeight/2);
+  var pos = position(.01,windowWidth/2);
   for(var i = 0 ; i < s.length ; i++) {
   	var pos_x =  mouseX + pos.x;
   	var pos_y =  mouseY + (i*size) + pos.y;
