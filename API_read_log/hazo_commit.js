@@ -1,12 +1,11 @@
 /**
-build commmit
+Commmit
 v 0.0.1
 2018-2018
 */
-
 function Commit() {
 	this.author;
-	
+
 	this.timestamp;
 	this.formattedTime;
 
@@ -30,7 +29,7 @@ function Commit() {
 		this.day = date.getDay();
 		this.hour = date.getHours();
 		this.minute = '0' + date.getMinutes();
-		this.formattedTime = this.year + '/' + this.month + '/' + this.day + ' at ' + this.hour + ':' + this.minute;
+		this.formattedTime = this.year + '/' + this.month + '/' + this.day + ' at ' + this.hour + ':' + this.get_minute();
 
 		// author
 		this.author = author;

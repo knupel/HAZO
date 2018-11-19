@@ -12,17 +12,61 @@ function draw_log(font,size) {
 		target_log = floor(random(result.length));
 	} 
   
-  var s = split(String(result[target_log]),'|');
-  var commit = new Commit();
-  commit.set(s[0],s[1],s[2],s[3]);
-
-  var date = commit.get_time();
-  var author = commit.get_author();
-  var type = commit.get_type();
-  var path = commit.get_path();
+  add_commit(result[target_log]);
+  
+  var date = commits[commits.length-1].get_time();
+  var author = commits[commits.length-1].get_author();
+  var type = commits[commits.length-1].get_type();
+  var path = commits[commits.length-1].get_path();
   
   display_log(font,size,author,date,type,path);
 }
+
+var periods = [];
+var commits = [];
+function add_commit(raw_commit) {
+	// add pure commit
+	var s = split(String(raw_commit),'|');
+	var c = new Commit();
+	c.set(s[0],s[1],s[2],s[3]);
+	commits.push(c);
+
+  // add period and commit for this period
+  var add_is = false;
+	if(periods.length > 0) {	
+		var new_period = c.get_year() + "_" + c.get_month();
+		for(var i = 0 ; i < periods.length ; i++) {			
+			var period = periods[i].get_period();	
+			if(period == new_period) {
+				periods[i].add(c);
+				add_is = true;
+				break;
+			}	
+		}			
+	} 
+
+	if(!add_is) {
+		var year = c.get_year();
+		var month = c.get_month();
+		var p = new Period(year,month);
+		p.init();
+		periods.push(p);
+		p.add(c);
+	}
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
