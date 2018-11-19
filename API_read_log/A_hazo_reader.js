@@ -21,6 +21,7 @@ function setup() {
 
 function draw() {
   background_hazo();
+  display_period();
   hazo_version(font_title,60);
   draw_log(font_current,18);
 }
@@ -45,7 +46,6 @@ function background_random() {
   saturation_bg = 100;
   brightness_bg = 100;
   alpha_bg = 100;
-  background(random(360),100,100);
 }
 
 

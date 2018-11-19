@@ -5,11 +5,14 @@ function load_log(file_name) {
 
 var target_log = 0;
 var colour_font = 0;
-
 function draw_log(font,size) {
-	var time_to_switch_user = 600;
+	var time_to_switch_user = 30;
+
 	if(frameCount%time_to_switch_user == 0) {
-		target_log = floor(random(result.length));
+		// target_log = floor(random(result.length));
+		target_log++;
+		compute_diameter_period();
+		add_period();
 	} 
   
   add_commit(result[target_log]);
@@ -22,36 +25,76 @@ function draw_log(font,size) {
   display_log(font,size,author,date,type,path);
 }
 
+
+var hazo_diameter =0.0;
+function compute_diameter_period() {
+	if(periods != null && periods.length > 0) {
+		var diam = [];
+		for(var i = 0 ; i < periods.length ; i++) {
+			diam[i] = periods[i].get_length();
+			hazo_diameter += (parseFloat(diam[i]) *.01);
+		}
+	}
+}
+
+
+function display_period() {
+	var diam = hazo_diameter;
+	for(var i = 0 ; i < periods.length ; i++) {
+		diam -periods[i].get_length();
+		text(i+1 + ' | ' + periods[i].get_length() + ' | ' +diam,windowWidth/2, (i+1) *20);
+		stroke(periods[i].get_fill());
+		noFill();
+		ellipse(windowWidth/2,windowHeight/2,diam,diam);
+	}
+}
+
+
+
+
 var periods = [];
 var commits = [];
+var commit_buffer;
 function add_commit(raw_commit) {
 	// add pure commit
 	var s = split(String(raw_commit),'|');
-	var c = new Commit();
-	c.set(s[0],s[1],s[2],s[3]);
-	commits.push(c);
+	commit_buffer = new Commit();
+	commit_buffer.set(s[0],s[1],s[2],s[3]);
+	commits.push(commit_buffer);
 
   // add period and commit for this period
-  var add_is = false;
+  
+}
+
+
+function add_period() {
+	var add_is = true;
 	if(periods.length > 0) {	
-		var new_period = c.get_year() + "_" + c.get_month();
+		var new_period = commit_buffer.get_year() + "_" + commit_buffer.get_month();
 		for(var i = 0 ; i < periods.length ; i++) {			
 			var period = periods[i].get_period();	
 			if(period == new_period) {
-				periods[i].add(c);
-				add_is = true;
+				periods[i].add(commit_buffer);
+				add_is = false;
 				break;
 			}	
 		}			
 	} 
 
-	if(!add_is) {
-		var year = c.get_year();
-		var month = c.get_month();
+	if(add_is) {
+		var year = commit_buffer.get_year();
+		var month = commit_buffer.get_month();
 		var p = new Period(year,month);
 		p.init();
 		periods.push(p);
-		p.add(c);
+		p.add(commit_buffer);
+		
+		for(i = 0 ; i < periods.length ; i++) {
+			var hue = random(360);
+			var c = color(hue,100,100);
+			periods[i].set_fill(c);
+		}
+		
 	}
 }
 
@@ -73,6 +116,7 @@ function add_commit(raw_commit) {
 
 function display_log(font,size,author,date,type,path) {
 	colour_inc(.2,0,0);
+	noStroke();
 	fill(color(colour_log_x,colour_log_y,colour_log_z));
 	textFont(font);
   // textAlign(LEFT);
@@ -153,10 +197,10 @@ function position(speed,dist_max) {
 	if(radius_log > dist_max) {
 		growth_is = true;
 	} 
-	if(radius_log <0) {
+
+	if(radius_log < 0) {
 		growth_is = false;
 	}
-
 
 	var angle = frameCount *speed;
 	var x = cos(angle) *radius_log;

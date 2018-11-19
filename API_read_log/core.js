@@ -11,6 +11,7 @@ function hazo_version(font,size) {
   var text_size = size;
   
   fill(0);
+  noStroke();
   textFont(font);
   textAlign(CENTER);
   

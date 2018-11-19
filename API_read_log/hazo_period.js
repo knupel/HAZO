@@ -9,18 +9,49 @@ function Period(year,month) {
 
 	this.year = year;
 	this.month = month;
-	this.commits_period = [];
+	this.fill;
+	this.stroke;
+	this.thickness;
+	this.commits = [];
 	this.period;
-	this.size;
+
 
 	this.init = function() {
 		this.period = this.year + "_" + this.month;
 	}
 
 	this.add = function(commit) {
-		this.commits_period.push(commit);
-		this.size = this.commits_period.length;	
+		this.commits.push(commit);
 	}
+
+	this.set_fill = function(fill) {
+		this.fill = fill;
+	}
+
+	this.set_stroke = function(stroke) {
+		this.stroke = stroke;
+	}
+
+	this.set_thickness = function(thickness) {
+		this.thickness = thickness;
+	}
+
+
+  // get
+
+  this.get_fill = function() {
+		return this.fill;
+	}
+
+	this.get_stroke = function() {
+		return this.strokee;
+	}
+
+	this.get_thickness = function() {
+		return this.thickness;
+	}
+
+
 
 	this.get_period = function() {
 		return this.period;
@@ -34,9 +65,13 @@ function Period(year,month) {
 		return this.month;
 	}
 
+	this.get_length = function() {
+		return this.commits.length;	
+	}
+
 	this.get_commit = function(target) {
-		if(target > 0 && target < this.commits_period.length) {
-			return this.commits_period[target];
+		if(target > 0 && target < this.commits.length) {
+			return this.commits[target];
 		} else return null;
 	}
 }
