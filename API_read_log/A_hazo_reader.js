@@ -29,7 +29,6 @@ function draw() {
 
 function mousePressed() {
   background_random();
-
 }
 
 function windowResized() {
